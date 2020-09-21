@@ -1,5 +1,3 @@
-[![Build Status][badge-travis-image]][badge-travis-url]
-
 MOH IAM Kong plugin
 ===================
 
@@ -15,6 +13,19 @@ You can create a local development environment by following the instructions in 
 2. On the step to checkout the `kong-plugin`, checkout this repo, not the base template.
 3. After checking out the Kong repo, `cd` into the repo and switch to a specific branch: `git checkout release/2.1.3`.
 4. When running Vagrant, set the version with `KONG_VERSION=2.1.3 vagrant up`.
+
+## Using the plugin
+
+The [`kong-vagrant`](https://github.com/Kong/kong-vagrant) repo also contains instructions for enabling the plugin. After enabling the plugin, you will need to add an Authorization header with a JWT to make requests to the mock endpoint.
+
+```bash
+curl -s -H "Authorization: Bearer ${ACCESS_TOKEN}" http://localhost:8000/
+```
+
+To get an access token, I configured a client on our Keycloak dev server, but because this plugin only validates the `aud` claim at the moment, you use any token -- you could build one yourself at https://jwt.io.
+
+If you want to use Keycloak, you need a confidential client with service accounts enabled. Then you can get the token from the token endpoint. An example script that does this is at [`run.sh`](run.sh).
+
 
 ## Troubleshooting
 
