@@ -56,58 +56,19 @@ for _, strategy in helpers.each_strategy() do
       if client then client:close() end
     end)
 
-
-
-    describe("request", function()
-      it("gets a 'hello-world' header", function()
-        local r = client:get("/request", {
-          headers = {
-            host = "test1.com",
-            Authorization = STANDARD_JWT
-          }
-        })
-        -- validate that the request succeeded, response status 200
-        assert.response(r).has.status(200)
-        -- now check the request (as echoed by mockbin) to have the header
-        local header_value = assert.request(r).has.header("hello-world")
-        -- validate the value of that header
-        assert.equal("this is on a request", header_value)
-      end)
-    end)
-
-
-
-    describe("response", function()
-      it("gets a 'bye-world' header", function()
-
         -- TODO so this works but I think it's a pain to put the whole payload in there?
-        local testit = jwt_encoder(
-          {
-            somevalue = "test", 
-            realm_access = { 
-              roles = { "offline_access", "uma_auth" }
-            }
-          }, 
-          'somekey', 
-          'HS256', 
-          { alg = "RS256", typ = "JWT", kid = "ptmZ9019qZeNqu-dZd9bPAvyQVmJ0h-nSCKGc7RzIp0"}
-        )
-        print(testit)
-
-        local r = client:get("/request", {
-          headers = {
-            host = "test1.com",
-            Authorization = 'Bearer ' .. testit--STANDARD_JWT
-          }
-        })
-        -- validate that the request succeeded, response status 200
-        assert.response(r).has.status(200)
-        -- now check the response to have the header
-        local header_value = assert.response(r).has.header("bye-world")
-        -- validate the value of that header
-        assert.equal("this is on the response", header_value)
-      end)
-    end)
+        -- local testit = jwt_encoder(
+        --   {
+        --     somevalue = "test", 
+        --     realm_access = { 
+        --       roles = { "offline_access", "uma_auth" }
+        --     }
+        --   }, 
+        --   'somekey', 
+        --   'HS256', 
+        --   { alg = "RS256", typ = "JWT", kid = "ptmZ9019qZeNqu-dZd9bPAvyQVmJ0h-nSCKGc7RzIp0"}
+        -- )
+        -- print(testit)
 
     describe("authorization", function()
 

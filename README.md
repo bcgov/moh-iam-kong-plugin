@@ -26,6 +26,20 @@ To get an access token, I configured a client on our Keycloak dev server, but be
 
 If you want to use Keycloak, you need a confidential client with service accounts enabled. Then you can get the token from the token endpoint. An example script that does this is at [`run.sh`](run.sh).
 
+## Developing the plugin
+
+It's mentioned in the [`kong-vagrant`](https://github.com/Kong/kong-vagrant) guide, but I'll say it again here: run all commands from the /kong directory. So to start Kong, run `/kong/bin/kong start`. The kong at `/usr/local/bin/kong` is the one that comes with the Vagrant box, not the one you checked-out.
+
+If you followed the guide, you should have this directory structure on your host machine (Windows):
+
+```
+-some_dir
+  |-kong-vagrant
+     |-kong
+     |-kong-plugin
+```
+
+The `kong` and `kong-plugin` directory are synced between the host and Vagrant box, so you can open plugin files in Windows and edit them. To get Kong to reload the plugin, just stop and start kong.
 
 ## Troubleshooting
 
