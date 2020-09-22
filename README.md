@@ -5,7 +5,9 @@ This repository contains a plugin that does some JWT validation. It was implemen
 [`kong-pongo`](https://github.com/Kong/kong-pongo) and
 [`kong-vagrant`](https://github.com/Kong/kong-vagrant) development environments.
 
-Why not an existing plugin? An existing plugin will be used for basic JWT validation, that is checking the expiry and validating the signature, but we want to validate additional claims such as azp, aud, and scopes with a regex. Rather than trying (and probably failing) to find a third-party plugin that validates claims _exactly_ the way we want, it's easier to write a plugin ourselves.
+Why not an existing plugin? An existing plugin will be used for basic JWT validation, that is checking the expiry and validating the signature, but we want to validate additional claims such as `azp`, `aud`, and `scope` with a regex. Rather than trying (and probably failing) to find a third-party plugin that validates claims _exactly_ the way we want, it's easier to write a plugin ourselves.
+
+Currently the plugin validates only the `aud` claim. The rest of the claim validations would have a similar implementation. Another piece missing is configuration: the plugin validates that `aud=account`, but the value should be configurable.
 
 ## Plugin development
 
@@ -68,3 +70,8 @@ vagrant@ubuntu1604:/kong$ export KONG_PLUGINS=bundled,myplugin
 ### Why not Pongo?
 
 [Pongo on Windows](https://github.com/Kong/kong-pongo#pongo-on-windows) is offerred as an alternative to Vagrant for plugin development. It is Docker-based and requires a newer build of Windows 10 than our CGI laptops currently have installed.
+
+## References
+
+* [Kong plugin template](https://github.com/Kong/kong-plugin)
+* [`kong-vagrant`](https://github.com/Kong/kong-vagrant) 
