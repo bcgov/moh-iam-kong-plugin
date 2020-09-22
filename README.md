@@ -5,6 +5,8 @@ This repository contains a plugin that does some JWT validation. It was implemen
 [`kong-pongo`](https://github.com/Kong/kong-pongo) and
 [`kong-vagrant`](https://github.com/Kong/kong-vagrant) development environments.
 
+Why not an existing plugin? An existing plugin will be used for basic JWT validation, that is checking the expiry and validating the signature, but we want to validate additional claims such as azp, aud, and scopes with a regex. Rather than trying (and probably failing) to find a third-party plugin that validates claims _exactly_ the way we want, it's easier to write a plugin ourselves.
+
 ## Plugin development
 
 You can create a local development environment by following the instructions in the [`kong-vagrant`](https://github.com/Kong/kong-vagrant) repo. I won't repeat the instructions here, but I'll clarify a few steps:
@@ -28,7 +30,7 @@ If you want to use Keycloak, you need a confidential client with service account
 
 ## Developing the plugin
 
-It's mentioned in the [`kong-vagrant`](https://github.com/Kong/kong-vagrant) guide, but I'll say it again here: run all commands from the /kong directory. So to start Kong, run `/kong/bin/kong start`. The kong at `/usr/local/bin/kong` is the one that comes with the Vagrant box, not the one you checked-out.
+It's mentioned in the [`kong-vagrant`](https://github.com/Kong/kong-vagrant) guide, but I'll say it again here: run all commands from the /kong directory. So to start Kong, run `/kong/bin/kong start`. The Kong at `/usr/local/bin/kong` is the one that comes with the Vagrant box, not the one you checked-out.
 
 If you followed the guide, you should have this directory structure on your host machine (Windows):
 
@@ -39,7 +41,7 @@ If you followed the guide, you should have this directory structure on your host
      |-kong-plugin
 ```
 
-The `kong` and `kong-plugin` directory are synced between the host and Vagrant box, so you can open plugin files in Windows and edit them. To get Kong to reload the plugin, just stop and start kong.
+The `kong` and `kong-plugin` directory are synced between the host and Vagrant box, so you can open plugin files in Windows and edit them. To get Kong to reload the plugin, just stop and start Kong.
 
 ## Troubleshooting
 
