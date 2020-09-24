@@ -14,9 +14,10 @@ Currently the plugin validates only the `aud` claim. The rest of the claim valid
 You can create a local development environment by following the instructions in the [`kong-vagrant`](https://github.com/Kong/kong-vagrant) repo. I won't repeat the instructions here, but I'll clarify a few steps:
 
 1. If you've been using Docker on Windows, you will need to disable Hyper-V before using Vagrant.
-2. On the step to checkout the `kong-plugin`, checkout this repo, not the base template.
-3. After checking out the Kong repo, `cd` into the repo and switch to a specific branch: `git checkout release/2.1.3`.
-4. When running Vagrant, set the version with `KONG_VERSION=2.1.3 vagrant up`.
+2. On the step to checkout the `kong-plugin`, checkout this repo, not the base template. 
+3. Rename the plugin directory to `kong-plugin`: `mv moh-iam-kong-plugin kong-plugin`.
+4. After checking out the Kong repo, `cd` into the repo and switch to a specific branch: `git checkout 2.1.3`.
+5. When running Vagrant, set the version with `KONG_VERSION=2.1.3 vagrant up`.
 
 ## Using the plugin
 
