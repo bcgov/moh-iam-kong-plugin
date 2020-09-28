@@ -67,6 +67,35 @@ I think I fixed this error simply by setting the KONG_PLUGINS environment variab
 vagrant@ubuntu1604:/kong$ export KONG_PLUGINS=bundled,myplugin
 ```
 
+### curl: (60) server certificate verification failed
+
+During `make dev` you may encounter this error:
+
+curl: (60) server certificate verification failed. CAfile: /etc/ssl/certs/ca-certificates.crt CRLfile: none
+More details here: http://curl.haxx.se/docs/sslcerts.html
+
+This is probably due to the CGI certificates. You should be able to get around it by connecting to RNAS.
+
+### Could not satisfy dependency compat53 (or similar errors)
+
+If you get dependency errors from `make dev` like this one:
+
+```
+Error: Could not satisfy dependency compat53 >= 0.3: No results matching query were found for Lua 5.1.
+Makefile:116: recipe for target 'dependencies' failed
+make: *** [dependencies] Error 1
+```
+
+First, simply try the command again. 
+
+If you're still getting errors, try `sudo rm -rf ~/.cache/luarocks` and try again. 
+
+Try again and again. You might be getting resolvable connection timeouts on some downloads. See if you're making progress before moving on.
+
+If you're still getting errors, make sure when you ran the first `vagrant up` you specified the Kong version as described above.
+
+If you're *still* getting errors, try starting over with the latest version of Kong.
+
 ### Why not Pongo?
 
 [Pongo on Windows](https://github.com/Kong/kong-pongo#pongo-on-windows) is offerred as an alternative to Vagrant for plugin development. It is Docker-based and requires a newer build of Windows 10 than our CGI laptops currently have installed.

@@ -13,6 +13,8 @@ TOKENS=$(curl -s -k -X POST \
 -d "client_secret=${CLIENT_SECRET}" \
 https://common-logon-dev.hlth.gov.bc.ca/auth/realms/moh_applications/protocol/openid-connect/token)
 
+echo ${TOKENS}
+
 ACCESS_TOKEN=$(echo ${TOKENS} | jq -r ".access_token")
 
 echo ${ACCESS_TOKEN}
