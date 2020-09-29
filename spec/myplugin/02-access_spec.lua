@@ -30,7 +30,9 @@ for _, strategy in helpers.each_strategy() do
       bp.plugins:insert {
         name = PLUGIN_NAME,
         route = { id = route1.id },
-        config = {},
+        config = {
+          X_Intermediary = "configuredvalue"
+        },
       }
 
       -- start kong
@@ -71,6 +73,17 @@ for _, strategy in helpers.each_strategy() do
         -- print(testit)
 
     describe("authorization", function()
+
+      it("smoke test", function()
+        local r = client:get("/request", {
+          headers = {
+            host = "test1.com",
+            Authorization = STANDARD_JWT
+          }
+        })
+
+        local body = assert.res_status(200, r)
+      end)
 
       it("requires JWT", function()
         local r = client:get("/request", {
@@ -118,6 +131,42 @@ for _, strategy in helpers.each_strategy() do
           assert.same({error = "invalid_request", error_description = "Missing audience"}, cjson.decode(body))
       end)
     
+    end)
+
+    describe("request", function()
+      it("gets a 'X-Intermediary' header", function()
+        local r = client:get("/request", {
+          headers = {
+            host = "test1.com",
+            Authorization = STANDARD_JWT
+          }
+        })
+        -- validate that the request succeeded, response status 200
+        assert.response(r).has.status(200)
+        -- now check the request (as echoed by mockbin) to have the header
+        local header_value = assert.request(r).has.header("X-Intermediary")
+        -- validate the value of that header
+        assert.equal("configuredvalue", header_value)
+      end)
+    end)
+
+
+
+    describe("response", function()
+      it("gets a 'X_Intermediary' header", function()
+        local r = client:get("/request", {
+          headers = {
+            host = "test1.com",
+            Authorization = STANDARD_JWT
+          }
+        })
+        -- validate that the request succeeded, response status 200
+        assert.response(r).has.status(200)
+        -- now check the response to have the header
+        local header_value = assert.response(r).has.header("X-Intermediary")
+        -- validate the value of that header
+        assert.equal("configuredvalue", header_value)
+      end)
     end)
 
   end)

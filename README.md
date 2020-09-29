@@ -11,7 +11,7 @@ Currently the plugin validates only the `aud` claim. The rest of the claim valid
 
 ## Plugin development
 
-You can create a local development environment by following the instructions in the [`kong-vagrant`](https://github.com/Kong/kong-vagrant) repo. I won't repeat the instructions here, but I'll clarify a few steps:
+You can create a local development environment by following the instructions in the [`kong-vagrant`](https://github.com/Kong/kong-vagrant) repo. I won't repeat the instructions here, and you should definitely go read them! I will however clarify a few steps:
 
 1. If you've been using Docker on Windows, you will need to disable Hyper-V before using Vagrant.
 2. On the step to checkout the `kong-plugin`, checkout this repo, not the base template. 
@@ -45,6 +45,12 @@ If you followed the guide, you should have this directory structure on your host
 ```
 
 The `kong` and `kong-plugin` directory are synced between the host and Vagrant box, so you can open plugin files in Windows and edit them. To get Kong to reload the plugin, just stop and start Kong.
+
+## Tip
+
+When running the tests (instructions are in the [`kong-vagrant`](https://github.com/Kong/kong-vagrant) repo), it runs the tests using both Cassandra and Postgres, which means every test runs twice. You can specify just one database with `export KONG_TEST_DATABASE=postgres`.
+
+Remember enviroment variables won't survive restarts (e.g. `vagrant up`), but you can put them in your `.bash_profile`. You'll probably want to add `export KONG_PLUGINS=bundled,myplugin` (again, instructions are in the [`kong-vagrant`](https://github.com/Kong/kong-vagrant) repo).
 
 ## Troubleshooting
 

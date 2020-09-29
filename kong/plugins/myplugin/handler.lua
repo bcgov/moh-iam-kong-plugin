@@ -110,16 +110,21 @@ function plugin:access(plugin_conf)
 
   -- your custom code here
   kong.log.inspect(plugin_conf)   -- check the logs for a pretty-printed config!
-  kong.log("LOG REQUEST: ", kong.request.get_raw_body())
-  if (string.find(kong.request.get_raw_body(), "tyler")) then
-      return kong.response.exit(403, { message = "Tyler is not allowed to use this" })
-  end
-  ngx.req.set_header(plugin_conf.request_header, "this is on a request")
+
+  ngx.req.set_header("X-Intermediary", plugin_conf.X_Intermediary)
 
   local ok, err = do_authentication(plugin_conf)
   if not ok then
       return kong.response.exit(err.status, err.errors or { message = err.message })
   end
+
+end --]]
+
+---[[ runs in the 'header_filter_by_lua_block'
+function plugin:header_filter(plugin_conf)
+
+  -- your custom code here, for example;
+  ngx.header["X-Intermediary"] = plugin_conf.X_Intermediary
 
 end --]]
 
