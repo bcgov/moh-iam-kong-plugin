@@ -7,18 +7,6 @@ This repository contains a plugin that does some JWT validation. It was implemen
 
 Why not an existing plugin? An existing plugin will be used for basic JWT validation, that is checking the expiry and validating the signature, but we want to validate additional claims such as `azp`, `aud`, and `scope` with a regex. Rather than trying (and probably failing) to find a third-party plugin that validates claims _exactly_ the way we want, it's easier to write a plugin ourselves.
 
-Currently the plugin validates only the `aud` claim. The rest of the claim validations would have a similar implementation. Another piece missing is configuration: the plugin validates that `aud=account`, but the value should be configurable.
-
-## Plugin development
-
-You can create a local development environment by following the instructions in the [`kong-vagrant`](https://github.com/Kong/kong-vagrant) repo. I won't repeat the instructions here, and you should definitely go read them! I will however clarify a few steps:
-
-1. If you've been using Docker on Windows, you will need to disable Hyper-V before using Vagrant.
-2. On the step to checkout the `kong-plugin`, checkout this repo, not the base template. 
-3. Rename the plugin directory to `kong-plugin`: `mv moh-iam-kong-plugin kong-plugin`.
-4. After checking out the Kong repo, `cd` into the repo and switch to a specific branch: `git checkout 2.1.3`.
-5. When running Vagrant, set the version with `KONG_VERSION=2.1.3 vagrant up`.
-
 ## Using the plugin
 
 The [`kong-vagrant`](https://github.com/Kong/kong-vagrant) repo also contains instructions for enabling the plugin. After enabling the plugin, you will need to add an Authorization header with a JWT to make requests to the mock endpoint.
@@ -31,7 +19,22 @@ To get an access token, I configured a client on our Keycloak dev server, but be
 
 If you want to use Keycloak, you need a confidential client with service accounts enabled. Then you can get the token from the token endpoint. An example script that does this is at [`run.sh`](run.sh).
 
-## Developing the plugin
+### Features
+
+These features are implemented for demonstration purposes. They would need to be extended and modified for a real project.
+
+* The plugin validates the `aud` claim. It returns a 403 if `aud` does not equal `account`.
+* The plugin sets the `X-Intermediary` header. The value is configurable, by defaults to `bchealth.api.gov.bc.ca`.
+
+## Plugin development
+
+You can create a local development environment by following the instructions in the [`kong-vagrant`](https://github.com/Kong/kong-vagrant) repo. I won't repeat the instructions here, and you should definitely go read them! I will however clarify a few steps:
+
+1. If you've been using Docker on Windows, you will need to disable Hyper-V before using Vagrant.
+2. On the step to checkout the `kong-plugin`, checkout this repo, not the base template. 
+3. Rename the plugin directory to `kong-plugin`: `mv moh-iam-kong-plugin kong-plugin`.
+4. After checking out the Kong repo, `cd` into the repo and switch to a specific branch: `git checkout 2.1.3`.
+5. When running Vagrant, set the version with `KONG_VERSION=2.1.3 vagrant up`.
 
 It's mentioned in the [`kong-vagrant`](https://github.com/Kong/kong-vagrant) guide, but I'll say it again here: run all commands from the /kong directory. So to start Kong, run `/kong/bin/kong start`. The Kong at `/usr/local/bin/kong` is the one that comes with the Vagrant box, not the one you checked-out.
 
@@ -45,6 +48,7 @@ If you followed the guide, you should have this directory structure on your host
 ```
 
 The `kong` and `kong-plugin` directory are synced between the host and Vagrant box, so you can open plugin files in Windows and edit them. To get Kong to reload the plugin, just stop and start Kong.
+
 
 ## Tip
 
