@@ -24,7 +24,8 @@ If you want to use Keycloak, you need a confidential client with service account
 These features are implemented for demonstration purposes. They would need to be extended and modified for a real project.
 
 * The plugin validates the `aud` claim. It returns a 403 if `aud` does not equal `account`.
-* The plugin sets the `X-Intermediary` header. The value is configurable, by defaults to `bchealth.api.gov.bc.ca`.
+* The plugin sets the `X-Intermediary` header. The value is configurable, it defaults to `bchealth.api.gov.bc.ca`.
+* The plugin ensures that the JWT is present and paresable.
 
 ## Plugin development
 
