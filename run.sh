@@ -6,7 +6,7 @@
 CLIENT_ID=kongtest
 CLIENT_SECRET=e0e6f385-5084-46c1-a1aa-c03eb646440d
 
-TOKENS=$(curl -s -k -X POST \
+TOKENS=$(curl -S -k -X POST \
 -H "Content-Type: application/x-www-form-urlencoded" \
 -d "grant_type=client_credentials" \
 -d "client_id=${CLIENT_ID}" \
@@ -19,5 +19,8 @@ ACCESS_TOKEN=$(echo ${TOKENS} | jq -r ".access_token")
 
 echo ${ACCESS_TOKEN}
 
-curl -s -H "Authorization: Bearer ${ACCESS_TOKEN}" http://localhost:8000/ \
+curl -S -H "Authorization: ${ACCESS_TOKEN}" http://localhost:8000/hl7v2 \
      --data "${1}"
+
+# curl -s -H "Authorization: Bearer ${ACCESS_TOKEN}" http://localhost:8000/ \
+     # --data "${1}"
