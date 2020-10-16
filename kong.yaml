@@ -1,0 +1,62 @@
+_format_version: "1.1"
+services:
+- connect_timeout: 60000
+  host: 10.0.2.2
+  name: hnsecure
+  path: /hl7v2
+  port: 9090
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  write_timeout: 60000
+  routes:
+  - id: 04d2f6c0-4ffa-4c21-843c-cde7d80c52e9
+    paths:
+    - /hl7v2
+    path_handling: v0
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    strip_path: true
+    https_redirect_status_code: 426
+  plugins:
+  - name: jwt-keycloak
+    config:
+      algorithm: RS256
+      allowed_iss:
+      - https://common-logon-dev.hlth.gov.bc.ca/auth/realms/moh_applications
+      anonymous: null
+      claims_to_verify:
+      - exp
+      client_roles: null
+      consumer_match: false
+      consumer_match_claim: azp
+      consumer_match_claim_custom_id: false
+      consumer_match_ignore_not_found: false
+      cookie_names: []
+      iss_key_grace_period: 10
+      maximum_expiration: 0
+      realm_roles: null
+      roles: null
+      run_on_preflight: true
+      scope: null
+      uri_param_names:
+      - jwt
+      well_known_template: '%s/.well-known/openid-configuration'
+    enabled: true
+    protocols:
+    - grpc
+    - grpcs
+    - http
+    - https
+  - name: myplugin
+    config:
+      X_Intermediary: bchealth.api.gov.bc.ca
+    enabled: true
+    protocols:
+    - grpc
+    - grpcs
+    - http
+    - https

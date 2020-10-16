@@ -32,7 +32,7 @@ These features are implemented for demonstration purposes. They would need to be
 You can create a local development environment by following the instructions in the [`kong-vagrant`](https://github.com/Kong/kong-vagrant) repo. I won't repeat the instructions here, and you should definitely go read them! I will however clarify a few steps:
 
 1. If you've been using Docker on Windows, you will need to disable Hyper-V before using Vagrant.
-2. On the step to checkout the `kong-plugin`, checkout this repo, not the base template. 
+2. On the step to checkout the `kong-plugin`, checkout this repo, not the base template.
 3. Rename the plugin directory to `kong-plugin`: `mv moh-iam-kong-plugin kong-plugin`.
 4. After checking out the Kong repo, `cd` into the repo and switch to a specific branch: `git checkout 2.1.3`.
 5. When running Vagrant, set the version with `KONG_VERSION=2.1.3 vagrant up`.
@@ -98,9 +98,9 @@ Makefile:116: recipe for target 'dependencies' failed
 make: *** [dependencies] Error 1
 ```
 
-First, simply try the command again. 
+First, simply try the command again.
 
-If you're still getting errors, try `sudo rm -rf ~/.cache/luarocks` and try again. 
+If you're still getting errors, try `sudo rm -rf ~/.cache/luarocks` and try again.
 
 Try again and again. You might be getting resolvable connection timeouts on some downloads. See if you're making progress before moving on.
 
@@ -110,9 +110,9 @@ If you're *still* getting errors, try starting over with the latest version of K
 
 ### Why not Pongo?
 
-[Pongo on Windows](https://github.com/Kong/kong-pongo#pongo-on-windows) is offerred as an alternative to Vagrant for plugin development. It is Docker-based and requires a newer build of Windows 10 than our CGI laptops currently have installed.
+[Pongo on Windows](https://github.com/Kong/kong-pongo#pongo-on-windows) is offered as an alternative to Vagrant for plugin development. It is Docker-based and requires a newer build of Windows 10 than our CGI laptops currently have installed.
 
 ## References
 
 * [Kong plugin template](https://github.com/Kong/kong-plugin)
-* [`kong-vagrant`](https://github.com/Kong/kong-vagrant) 
+* [`kong-vagrant`](https://github.com/Kong/kong-vagrant)

@@ -81,7 +81,7 @@ local function do_authentication(conf)
 
     kong.log(dump(jwt))
 
-    local audienceError = { status = 403, errors = {error = "invalid_token", error_description = "Wrong audience"} }
+    local audienceError = { status = 401, errors = {error = "invalid_token", error_description = "Wrong audience"} }
     local audience = jwt.claims.aud
     if (type(audience) == "string") then
         if (audience ~= "account") then
@@ -98,7 +98,7 @@ local function do_authentication(conf)
             return false, audienceError
         end
     else
-        return false, { status = 400, errors = {error = "invalid_request", error_description = "Missing audience"} }
+        return false, audienceError
     end
 
     return true

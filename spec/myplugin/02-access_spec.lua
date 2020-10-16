@@ -61,13 +61,13 @@ for _, strategy in helpers.each_strategy() do
         -- TODO so this works but I think it's a pain to put the whole payload in there?
         -- local testit = jwt_encoder(
         --   {
-        --     somevalue = "test", 
-        --     realm_access = { 
+        --     somevalue = "test",
+        --     realm_access = {
         --       roles = { "offline_access", "uma_auth" }
         --     }
-        --   }, 
-        --   'somekey', 
-        --   'HS256', 
+        --   },
+        --   'somekey',
+        --   'HS256',
         --   { alg = "RS256", typ = "JWT", kid = "ptmZ9019qZeNqu-dZd9bPAvyQVmJ0h-nSCKGc7RzIp0"}
         -- )
         -- print(testit)
@@ -96,7 +96,7 @@ for _, strategy in helpers.each_strategy() do
         assert.same({error = "invalid_request", error_description = "Missing JWT"}, cjson.decode(body))
       end)
 
-      it("given bad audience expects 403", function()
+      it("given bad audience expects 401", function()
           local r = client:get("/request", {
             headers = {
               host = "test1.com",
@@ -104,7 +104,7 @@ for _, strategy in helpers.each_strategy() do
             }
           })
 
-          local body = assert.res_status(403, r)
+          local body = assert.res_status(401, r)
           assert.same({error = "invalid_token", error_description = "Wrong audience"}, cjson.decode(body))
       end)
 
@@ -127,10 +127,10 @@ for _, strategy in helpers.each_strategy() do
             }
           })
 
-          local body = assert.res_status(400, r)
-          assert.same({error = "invalid_request", error_description = "Missing audience"}, cjson.decode(body))
+          local body = assert.res_status(401, r)
+          assert.same({error = "invalid_token", error_description = "Wrong audience"}, cjson.decode(body))
       end)
-    
+
     end)
 
     describe("request", function()
