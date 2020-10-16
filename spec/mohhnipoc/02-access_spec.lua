@@ -4,7 +4,7 @@ local cjson   = require "cjson"
 local jwt_decoder = require "kong.plugins.jwt.jwt_parser"
 local jwt_encoder = jwt_decoder.encode
 
-local PLUGIN_NAME = "myplugin"
+local PLUGIN_NAME = "mohhnipoc"
 
 -- These tokens were generated on https://jwt.io/
 -- You can read them by pasting the token (without "Bearer") there

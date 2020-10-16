@@ -55,7 +55,7 @@ The `kong` and `kong-plugin` directory are synced between the host and Vagrant b
 
 When running the tests (instructions are in the [`kong-vagrant`](https://github.com/Kong/kong-vagrant) repo), it runs the tests using both Cassandra and Postgres, which means every test runs twice. You can specify just one database with `export KONG_TEST_DATABASE=postgres`.
 
-Remember enviroment variables won't survive restarts (e.g. `vagrant up`), but you can put them in your `.bash_profile`. You'll probably want to add `export KONG_PLUGINS=bundled,myplugin` (again, instructions are in the [`kong-vagrant`](https://github.com/Kong/kong-vagrant) repo).
+Remember enviroment variables won't survive restarts (e.g. `vagrant up`), but you can put them in your `.bash_profile`. You'll probably want to add `export KONG_PLUGINS=bundled,mohhnipoc` (again, instructions are in the [`kong-vagrant`](https://github.com/Kong/kong-vagrant) repo).
 
 ## Troubleshooting
 
@@ -66,7 +66,7 @@ In addition to the troubleshooting information available on the Vagrant page, I 
 ```bash
 vagrant@ubuntu1604:/kong$ bin/kong start
 Error: ./kong/cmd/start.lua:64: nginx: [warn] load balancing method redefined in /kong/servroot/nginx-kong.conf:56
-nginx: [error] init_by_lua error: ./kong/init.lua:464: myplugin plugin is in use but not enabled
+nginx: [error] init_by_lua error: ./kong/init.lua:464: mohhnipoc plugin is in use but not enabled
 stack traceback:
         [C]: in function 'assert'
         ./kong/init.lua:464: in function 'init'
@@ -76,7 +76,7 @@ stack traceback:
 I think I fixed this error simply by setting the KONG_PLUGINS environment variable, which for some reason was reset:
 
 ```bash
-vagrant@ubuntu1604:/kong$ export KONG_PLUGINS=bundled,myplugin
+vagrant@ubuntu1604:/kong$ export KONG_PLUGINS=bundled,mohhnipoc
 ```
 
 ### curl: (60) server certificate verification failed

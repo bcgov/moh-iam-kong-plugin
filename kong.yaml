@@ -51,7 +51,7 @@ services:
     - grpcs
     - http
     - https
-  - name: myplugin
+  - name: mohhnipoc
     config:
       X_Intermediary: bchealth.api.gov.bc.ca
     enabled: true
