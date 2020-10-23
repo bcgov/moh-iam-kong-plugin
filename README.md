@@ -1,7 +1,7 @@
 MOH IAM Kong plugin
 ===================
 
-This repository contains a Kong plugin that does some JWT validation. It was implemented to demonstrate how Kong could be used to meet the validation requirements of HNI applications. It's based off of the [Kong plugin template](https://github.com/Kong/kong-plugin), which is designed to work with the
+This repository contains a proof-of-concept JWT validation plugin for Kong API Gateway. It was implemented to demonstrate how Kong could be used to meet the validation requirements of HNI applications. It's based off of the [Kong plugin template](https://github.com/Kong/kong-plugin), which is designed to work with the
 [`kong-pongo`](https://github.com/Kong/kong-pongo) and
 [`kong-vagrant`](https://github.com/Kong/kong-vagrant) development environments.
 
