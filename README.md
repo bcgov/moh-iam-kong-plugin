@@ -7,7 +7,7 @@ This repository contains a proof-of-concept JWT validation plugin for Kong API G
 
 Why not an existing plugin? An existing plugin will be used for basic JWT validation, that is checking the expiry and validating the signature, but we want to validate additional claims such as `azp`, `aud`, and `scope` with a regex. Rather than trying (and probably failing) to find a third-party plugin that validates claims _exactly_ the way we want, it's easier to write a plugin ourselves.
 
-## Using the plugin
+## Trying the plugin in a development environment
 
 The [`kong-vagrant`](https://github.com/Kong/kong-vagrant) repo also contains instructions for enabling the plugin. After enabling the plugin, you will need to add an Authorization header with a JWT to make requests to the mock endpoint.
 
@@ -17,7 +17,7 @@ curl -s -H "Authorization: Bearer ${ACCESS_TOKEN}" http://localhost:8000/
 
 To get an access token, I configured a client on our Keycloak dev server, but because this plugin only validates the `aud` claim at the moment, you use any token -- you could build one yourself at https://jwt.io.
 
-If you want to use Keycloak, you need a confidential client with service accounts enabled. Then you can get the token from the token endpoint. An example script that does this is at [`run.sh`](run.sh).
+If you want to use Keycloak to get a token, you need a confidential client with service accounts enabled. Then you can get the token from the token endpoint. An example script that does this is at [`run.sh`](run.sh).
 
 ### Features
 
